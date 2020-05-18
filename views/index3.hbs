@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" const="text/html;charset=UTF-8" />
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> 
+   <link rel="stylesheet" type="text/css" href="css/final_project.css">
+</head>
+    <body>
+         <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+        <script src="js/socket_app.js"></script>
+        <button class='btn-btn-primary' onclick="window.location.href = 'https://dhan.sites.tjhsst.edu/logout';">Logout</button>
+        <div class="container">
+        <div style ="margin-top: -70px" class="jumbotron">
+        <h1>Messaging Application</h1>
+        <!--<h1 class="display-4">Online: {counter}</h1>-->
+        <form action="" id="message_add">
+            Name: <input id = "name" class="form-control" name="name" placeholder={{users}} value={{users}}>
+            
+        Message: <input id="m" name="m" class = "form-control" placeholder = "Type message..." autocomplete="off" /><br>
+        <button class="btn btn-primary" onclick="addMessage()">Send</button><br>
+        </form>
+        <div class="scroll-box" id="scroll-b">
+            <p id='messages'></p>
+        </div>
+        </div>
+        <script>
+            function updateScroll(){
+                var element = document.getElementById("scroll-b");
+                element.scrollTop = element.scrollHeight;
+            }
+            setInterval(updateScroll,100)
+            
+
+            function addMessage() {
+            	 $.ajax({
+                        url: "add_message",
+                        type: "get", 
+                        data:  $('#message_add').serialize(), 
+                        success: function(response) {
+                            console.log("message added")
+                        },
+                        error: function (stat, err) {
+                            console.log('message error!');
+                        }       
+                    });
+            }
+        </script>
+</body>
+</html>
